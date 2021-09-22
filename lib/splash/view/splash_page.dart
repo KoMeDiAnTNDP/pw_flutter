@@ -10,10 +10,10 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color(0xffc158dc),
+        color: Theme.of(context).primaryColor,
         child: Center(
           child: SvgPicture.asset(
-            'assets/parrot.svg',
+            'images/parrot.svg',
             semanticsLabel: 'Parrot',
           ),
         ),
