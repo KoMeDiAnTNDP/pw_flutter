@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pw_flutter/sign_in/sign_in.dart';
 
@@ -18,7 +17,7 @@ class TabBarContainer extends Container implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    // color: backgroundColor,
+    color: backgroundColor,
     child: tabBar,
   );
 }
@@ -34,7 +33,6 @@ class AuthenticationPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          // backgroundColor: Theme.of(context).primaryColor,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -50,7 +48,6 @@ class AuthenticationPage extends StatelessWidget {
             const TabBar(
               indicatorSize: TabBarIndicatorSize.tab,
               indicatorWeight: 6.0,
-              indicatorColor: const Color(0xffe1bee7),
               labelPadding: EdgeInsets.all(3.0),
               tabs: [
                 Tab(text: 'Sign In'),
