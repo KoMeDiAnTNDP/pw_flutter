@@ -54,10 +54,17 @@ class _EmailInput extends StatelessWidget {
           key: const Key('sign_in_form_email_input_text_field'),
           onChanged: (email) => context.read<SignInBloc>().add(SignInEmailChanged(email)),
           keyboardType: TextInputType.emailAddress,
+          cursorColor: Theme.of(context).colorScheme.secondary,
           decoration: InputDecoration(
             labelText: 'Email',
             helperText: 'jsmith@gmail.com',
             errorText: state.email.invalid ? 'Invalid email' : null,
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: const Color(0xffe1bee7))
+            ),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: const Color(0xffe1bee7))
+            ),
           ),
         );
       },
@@ -75,10 +82,17 @@ class _PasswordInput extends StatelessWidget {
           key: const Key('sign_in_form_password_input_text_field'),
           onChanged: (password) => context.read<SignInBloc>().add(SignInPasswordChanged(password)),
           obscureText: true,
+          cursorColor: Theme.of(context).colorScheme.secondary,
           decoration: InputDecoration(
             labelText: 'Password',
             helperText: 'Password must be at least 8 characters long',
             errorText: state.password.invalid ? 'Invalid password' : null,
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: const Color(0xffe1bee7))
+            ),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: const Color(0xffe1bee7))
+            ),
           ),
         );
       },
@@ -95,6 +109,7 @@ class _SignInButton extends StatelessWidget {
         return ElevatedButton(
           key: const Key('sign_in_form_button_form'),
           style: ElevatedButton.styleFrom(
+            primary: Theme.of(context).colorScheme.secondary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0)
             ),

@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:pw_flutter/helper/enums/enums.dart';
-import 'package:pw_flutter/repositories/user_repository/user_repository.dart';
 import 'package:pw_flutter/repositories/authentication_repository/authentication_repository.dart';
 
 part 'authentication_state.dart';
@@ -11,17 +10,14 @@ part 'authentication_event.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
-    required UserRepository userRepository,
     required AuthenticationRepository authenticationRepository,
-  }) : _userRepository = userRepository,
-       _authenticationRepository = authenticationRepository,
+  }) : _authenticationRepository = authenticationRepository,
        super(const AuthenticationState.unknown()) {
     _authenticationStatusSubscription = _authenticationRepository.status.listen(
       (status) => add(AuthenticationStatusChanged(status))
     );
   }
 
-  final UserRepository _userRepository;
   final AuthenticationRepository _authenticationRepository;
   late StreamSubscription<AuthenticationStatus> _authenticationStatusSubscription;
 

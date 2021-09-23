@@ -18,7 +18,7 @@ class TabBarContainer extends Container implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    color: backgroundColor,
+    // color: backgroundColor,
     child: tabBar,
   );
 }
@@ -34,6 +34,7 @@ class AuthenticationPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          // backgroundColor: Theme.of(context).primaryColor,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
