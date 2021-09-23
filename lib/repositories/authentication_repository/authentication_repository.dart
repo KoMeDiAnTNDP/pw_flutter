@@ -52,7 +52,7 @@ class AuthenticationRepository {
       final responseToken = await _httpClient.makeRequest<Token>(
         Method.POST,
         URLS['SIGN_UP']!,
-        body: { email, name, password }
+        body: { 'email': email, 'username': name, 'password': password }
       );
       _token = responseToken.token;
       _controller.add(AuthenticationStatus.authenticated);

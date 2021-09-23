@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:pw_flutter/authentication/authentication.dart';
 
 import 'package:pw_flutter/helper/models/form_inputs/form_inputs.dart';
 import 'package:pw_flutter/repositories/authentication_repository/authentication_repository.dart';
@@ -58,11 +57,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
     if (state.status.isValidated) {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
-      await _authenticationRepository.signIn(email: email.value, password: password.value);
 
-      if (_authenticationRepository.token != null) {
+      try {
+        await _authenticationRepository.signIn(email: email.value, password: password.value);
+
         yield state.copyWith(status: FormzStatus.submissionSuccess);
-      } else {
+      } catch (err) {
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
     }

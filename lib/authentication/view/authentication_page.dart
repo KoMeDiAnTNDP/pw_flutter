@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:pw_flutter/sign_in/sign_in.dart';
+import 'package:pw_flutter/sign_up/sign_up.dart';
 
 class TabBarContainer extends Container implements PreferredSizeWidget {
   TabBarContainer(
@@ -59,9 +61,7 @@ class AuthenticationPage extends StatelessWidget {
         body: TabBarView(
           children: [
             SignInPage(),
-            Center(
-              child: Text('Sign Up'),
-            )
+            SignUpPage(),
           ],
         ),
       )

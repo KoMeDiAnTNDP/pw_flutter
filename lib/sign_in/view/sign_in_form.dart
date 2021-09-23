@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:pw_flutter/sign_in/bloc/sign_in_bloc.dart';
+import '../bloc/sign_in_bloc.dart';
 
 class SignInForm extends StatelessWidget {
   @override
@@ -54,7 +54,6 @@ class _EmailInput extends StatelessWidget {
           key: const Key('sign_in_form_email_input_text_field'),
           onChanged: (email) => context.read<SignInBloc>().add(SignInEmailChanged(email)),
           keyboardType: TextInputType.emailAddress,
-          cursorColor: Theme.of(context).colorScheme.secondary,
           decoration: InputDecoration(
             labelText: 'Email',
             helperText: 'jsmith@gmail.com',
@@ -76,7 +75,6 @@ class _PasswordInput extends StatelessWidget {
           key: const Key('sign_in_form_password_input_text_field'),
           onChanged: (password) => context.read<SignInBloc>().add(SignInPasswordChanged(password)),
           obscureText: true,
-          cursorColor: Theme.of(context).colorScheme.secondary,
           decoration: InputDecoration(
             labelText: 'Password',
             helperText: 'Password must be at least 8 characters long',
