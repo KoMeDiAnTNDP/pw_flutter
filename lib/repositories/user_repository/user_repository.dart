@@ -31,13 +31,13 @@ class UserRepository {
 
   Future<List<FilteredUser>> getFilteredUsers(String name) async {
     try {
-      final filteredUser = await _httpClient.makeRequest<List<FilteredUser>>(
+      final filteredUsers = await _httpClient.makeRequest<List<FilteredUser>>(
         Method.POST,
         URLS['FILTERED_USERS']!,
         body: { 'filter': name },
       );
 
-      return filteredUser;
+      return filteredUsers;
     } catch (error) {
       throw Exception(error);
     }
