@@ -36,6 +36,7 @@ class AuthenticationRepository {
         body: { 'email': email, 'password': password }
       );
       _token = responseToken.token;
+      _httpClient.setToken(_token);
       _controller.add(AuthenticationStatus.authenticated);
     } catch (error) {
       _controller.add(AuthenticationStatus.unauthenticated);
@@ -55,6 +56,7 @@ class AuthenticationRepository {
         body: { 'email': email, 'username': name, 'password': password }
       );
       _token = responseToken.token;
+      _httpClient.setToken(_token);
       _controller.add(AuthenticationStatus.authenticated);
     } catch (error) {
       _controller.add(AuthenticationStatus.unauthenticated);
@@ -64,6 +66,7 @@ class AuthenticationRepository {
 
   void logout() {
     _token = null;
+    _httpClient.setToken(_token);
     _controller.add(AuthenticationStatus.unauthenticated);
   }
 

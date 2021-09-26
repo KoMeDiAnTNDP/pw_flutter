@@ -7,12 +7,19 @@ import 'package:pw_flutter/helper/http/response.dart';
 const BASE_URL = 'http://193.124.114.46:3001/';
 
 class HttpClient {
-  HttpClient({ String? token }) :
-      _token = token;
+  final client = http.Client();
+
+  HttpClient._internal();
+
+  static final _singleton = HttpClient._internal();
+
+  factory HttpClient() => _singleton;
 
   String? _token;
 
-  void setToken(String token) {
+  String? get token => _token;
+
+  void setToken(String? token) {
     _token = token;
   }
 
@@ -26,8 +33,13 @@ class HttpClient {
 
     switch (method) {
       case Method.GET:
-        final Uri uri = Uri.http(BASE_URL, url, params);
-        data = await _get<T>(uri);
+        try {
+          final query = Uri(queryParameters: params).query;
+          final Uri uri = Uri.parse('$BASE_URL$url?$query');
+          data = await _get<T>(uri);
+        } catch (err) {
+          throw Exception(err);
+        }
         break;
       case Method.POST:
         final Uri uri = Uri.parse('$BASE_URL$url');

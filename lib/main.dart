@@ -6,7 +6,6 @@ import 'package:pw_flutter/repositories/authentication_repository/authentication
 
 void main() {
   runApp(App(
-    userRepository: UserRepository(),
-    authenticationRepository: AuthenticationRepository())
-  );
+    authenticationRepository: AuthenticationRepository(),
+  ));
 }

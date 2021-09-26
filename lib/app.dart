@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pw_flutter/helper/http/http_client.dart';
 import 'package:pw_flutter/home/home.dart';
 import 'package:pw_flutter/repositories/authentication_repository/authentication_repository.dart';
 import 'package:pw_flutter/repositories/user_repository/user_repository.dart';
@@ -12,11 +13,9 @@ import 'package:pw_flutter/theme.dart';
 class App extends StatelessWidget {
   const App({
     Key? key,
-    required this.userRepository,
     required this.authenticationRepository
   }) : super(key: key);
 
-  final UserRepository userRepository;
   final AuthenticationRepository authenticationRepository;
 
   @override
@@ -39,6 +38,7 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
+  final HttpClient httpClient = HttpClient();
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
@@ -71,5 +71,11 @@ class _AppViewState extends State<AppView> {
       },
       onGenerateRoute: (_) => SplashPage.route(),
     );
+  }
+
+  @override
+  void dispose() {
+    httpClient.client.close();
+    super.dispose();
   }
 }

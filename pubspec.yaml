@@ -53,6 +53,8 @@ flutter:
 
   assets:
     - images/parrot.svg
+    - images/wings_left.svg
+    - images/wings_right.svg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

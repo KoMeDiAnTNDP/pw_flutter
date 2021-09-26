@@ -11,8 +11,7 @@ class User extends Equatable {
   final int id;
   final String? name;
   final String? email;
-  final double? balance;
-
+  final int? balance;
 
   static const empty = User(id: -1);
 
