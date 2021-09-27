@@ -4,9 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app_bar.dart';
 import 'balance.dart';
 import 'side_bar.dart';
-import 'transactions/transactions.dart';
+import 'package:pw_flutter/transactions/transactions.dart';
 import 'package:pw_flutter/user_profile/user_profile.dart';
-import 'package:pw_flutter/authentication/authentication.dart';
 import 'package:pw_flutter/repositories/user_repository/user_repository.dart';
 
 class HomePage extends StatelessWidget {
@@ -37,23 +36,7 @@ class HomePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 10.0),
                   child: Balance(),
                 ),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10.0),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(10.0)
-                          )
-                        ),
-                        child: Header(),
-                      ),
-                    ],
-                  ),
-                ),
+                TransactionsPage()
               ],
             ),
           ),
