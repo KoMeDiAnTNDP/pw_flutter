@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'package:pw_flutter/helper/utils/utils.dart';
+
 class User extends Equatable {
   const User({
     required this.id,
@@ -11,7 +13,7 @@ class User extends Equatable {
   final int id;
   final String? name;
   final String? email;
-  final int? balance;
+  final double? balance;
 
   static const empty = User(id: -1);
 
@@ -23,11 +25,13 @@ class User extends Equatable {
   List<Object?> get props => [id, name, email, balance];
 
   factory User.fromJSON(Map<String, dynamic> json) {
-    return User(
+    final user = User(
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      balance: json['balance']
+      balance: Utils.parseToDouble(json['balance'])
     );
+
+    return user;
   }
 }

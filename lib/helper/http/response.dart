@@ -15,8 +15,11 @@ class Response {
   static bool _isFilteredUser(Map<String, dynamic> json) =>
       json.containsKey('id') && json.containsKey('name');
 
+  static bool _isTransactionData(Map<String, dynamic> json) =>
+      json.containsKey('trans_token');
+
   static bool _isTransaction(Map<String, dynamic> json) =>
-      json['trans_token'] != null
+      json.containsKey('trans_token')
           && json['trans_token'].containsKey('id')
           && json['trans_token'].containsKey('date')
           && json['trans_token'].containsKey('username')
@@ -24,8 +27,7 @@ class Response {
           && json['trans_token'].containsKey('balance');
 
   static bool _isTransactionList(Map<String, dynamic> json) =>
-      json['trans_token'] != null
-          && json['trans_token'] is List<Map<String, dynamic>>;
+      json.containsKey('trans_token') && json['trans_token'] is List<dynamic>;
 
   static T dataFromJson<T>(Object json) {
     if (json is Map<String, dynamic>) {
@@ -33,22 +35,21 @@ class Response {
         return User.fromJSON(json['user_info_token']) as T;
       } else if (_isTokenClass(json)) {
         return Token.fromJson(json) as T;
-      } else if (_isTransaction(json)) {
-        return Transaction.fromJson(json['trans_token']) as T;
       } else if (_isTransactionList(json)) {
-        if (json['trans_token'].isEmpty) {
+        final transactionsJsonList = json['trans_token'] as List;
+
+        if (transactionsJsonList.isEmpty) {
           return List.empty() as T;
         } else {
-          if (json['trans_token'].any((element) => _isTransaction(element))) {
-            return json['trans_token']
-              .map((element) => Transaction.fromJson(element))
-              .toList() as T;
-          }
+          return transactionsJsonList
+              .map((element) => Transaction.fromJson(element)).toList() as T;
         }
+      } else if (_isTransaction(json)) {
+        return Transaction.fromJson(json['trans_token']) as T;
       }
-    } else if (json is List<Map<String, dynamic>>) {
+    } else if (json is List) {
       if (json.isEmpty) {
-        return List.empty() as T;
+        return <FilteredUser>[] as T;
       } else {
         if (json.any((element) => _isFilteredUser(element))) {
           return json.map((element) => FilteredUser.fromJson(element))

@@ -1,4 +1,7 @@
+import 'package:intl/intl.dart';
 import 'package:equatable/equatable.dart';
+
+import 'package:pw_flutter/helper/utils/utils.dart';
 
 class Transaction extends Equatable {
   const Transaction({
@@ -12,8 +15,8 @@ class Transaction extends Equatable {
   final int id;
   final DateTime date;
   final String name;
-  final int amount;
-  final int balance;
+  final double amount;
+  final double balance;
 
   @override
   List<Object> get props => [id, date, name, amount, balance];
@@ -21,10 +24,10 @@ class Transaction extends Equatable {
   factory Transaction.fromJson(Map<String, dynamic> json) {
     return Transaction(
       id: json['id'],
-      date: json['date'],
+      date: DateFormat('MM/dd/yyyy, hh:mm:ss a').parse(json['date']),
       name: json['username'],
-      amount: json['amount'],
-      balance: json['balance'],
+      amount: Utils.parseToDouble(json['amount']),
+      balance: Utils.parseToDouble(json['balance']),
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:pw_flutter/helper/models/models.dart';
 import 'package:pw_flutter/user_profile/user_profile.dart';
 
 class Balance extends StatelessWidget {
-  Widget balanceText(int? balance, bool isLoading) {
+  Widget balanceText(double? balance, bool isLoading) {
     if (isLoading || balance == null) {
       return CircularProgressIndicator();
     }

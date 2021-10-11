@@ -7,14 +7,4 @@ abstract class TransactionsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CreateTransaction extends TransactionsEvent {
-  const CreateTransaction(this.name, this.amount);
-
-  final String name;
-  final double amount;
-
-  @override
-  List<Object> get props => [name, amount];
-}
-
-class GetTransactions extends TransactionsEvent {}
+class TransactionsGetTransactions extends TransactionsEvent {}

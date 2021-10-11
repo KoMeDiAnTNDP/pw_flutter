@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:pw_flutter/user_profile/user_profile.dart';
+import 'package:pw_flutter/send_money/view/send_money_page.dart';
 
 class Header extends StatelessWidget {
-  Widget _createTile(String title) {
-    return Flexible(
+  Widget _createTile(String title, { TextAlign align = TextAlign.center }) {
+    return Expanded(
       child: Container(
         padding: EdgeInsets.all(8.0),
         child: Text(
           title,
-          textAlign: TextAlign.center,
+          textAlign: align,
         ),
       ),
     );
   }
 
+  void openCreateModal(BuildContext context, double? balance) => showDialog(
+    context: context,
+    builder: (BuildContext dialogContext) {
+
+      return SendMoneyPage(balance: balance ?? 0.0, parentContext: context);
+    }
+  );
+
+
   @override
   Widget build(BuildContext context) {
+    final user = context.select((UserProfileBloc bloc) => bloc.state.user);
+
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -39,7 +54,7 @@ class Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 RawMaterialButton(
-                  onPressed: () => print('test'),
+                  onPressed: () => openCreateModal(context, user.balance),
                   elevation: 2.0,
                   fillColor: Colors.white,
                   shape: CircleBorder(),
@@ -52,10 +67,10 @@ class Header extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _createTile('Date/Time of the transaction'),
+              _createTile('Date/Time of the transaction', align: TextAlign.start),
               _createTile('Correspondent Name'),
               _createTile('Transaction amount'),
-              _createTile('Resulting balance'),
+              _createTile('Resulting balance', align: TextAlign.right),
             ],
           ),
         ],

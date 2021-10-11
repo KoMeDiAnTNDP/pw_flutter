@@ -1,0 +1,1 @@
+const Duration DURATION = const Duration(milliseconds: 600);

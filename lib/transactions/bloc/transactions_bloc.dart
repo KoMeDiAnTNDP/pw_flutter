@@ -17,27 +17,12 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
 
   @override
   Stream<TransactionsState> mapEventToState(TransactionsEvent event) async* {
-    if (event is CreateTransaction) {
-      yield* _sendMoney(event, state);
-    } else if (event is GetTransactions) {
+    if (event is TransactionsGetTransactions) {
       yield* _getTransactions(event, state);
     }
   }
 
-  Stream<TransactionsState> _sendMoney(CreateTransaction event, TransactionsState state) async* {
-    yield state.copyWith(isLoading: true, hasError: false);
-
-    try {
-      await _transactionsRepository.createTransaction(event.name, event.amount);
-      final transactions = await _transactionsRepository.getTransactions();
-
-      yield state.copyWith(transactions: transactions, isLoading: false);
-    } catch (err) {
-      yield state.copyWith(isLoading: false, hasError: true);
-    }
-  }
-
-  Stream<TransactionsState> _getTransactions(GetTransactions event, TransactionsState state) async* {
+  Stream<TransactionsState> _getTransactions(TransactionsGetTransactions event, TransactionsState state) async* {
     yield state.copyWith(isLoading: true, hasError: false);
 
     try {

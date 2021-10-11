@@ -13,7 +13,8 @@ class TransactionsPage extends StatelessWidget {
     return RepositoryProvider.value(
       value: transactionsRepository,
       child: BlocProvider<TransactionsBloc>(
-        create: (_) => TransactionsBloc(transactionsRepository: transactionsRepository)..add(GetTransactions()),
+        create: (_) => TransactionsBloc(transactionsRepository: transactionsRepository)
+          ..add(TransactionsGetTransactions()),
         child: TransactionTable()
       ),
     );

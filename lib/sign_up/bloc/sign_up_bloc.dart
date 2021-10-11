@@ -51,10 +51,22 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   SignUpState _mapSignUpPasswordChanged(SignUpPasswordChanged event, SignUpState state) {
     final password = Password.dirty(event.password);
+    ConfirmedPassword confirmedPassword;
+
+    if (state.confirmedPassword.pure) {
+      confirmedPassword = ConfirmedPassword.pure(password: event.password);
+    } else {
+      confirmedPassword = ConfirmedPassword.dirty(
+        password: event.password,
+        value: state.confirmedPassword.value,
+      );
+    }
 
     return state.copyWith(
       password: password,
-      status: Formz.validate([state.email, state.name, password, state.confirmedPassword]),
+      status: Formz.validate(
+        [state.email, state.name, password, confirmedPassword],
+      ),
     );
   }
 
